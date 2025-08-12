@@ -3,124 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohammed Ayaz Ansari | Cybersecurity Portfolio</title>
+<title>Mohammed Ayaz Ansari | Portfolio</title>
 <style>
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-body {
-  background: black;
-  color: #00ff9d;
-  overflow-x: hidden;
-}
-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -2;
-}
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ===== HEADER ===== */
-header {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  text-align: center;
-}
-.profile-pic {
-  width: 180px; height: 180px;
-  border-radius: 50%;
-  border: 4px solid #00ff9d;
-  box-shadow: 0 0 30px #00ff9d, 0 0 60px #00ff9d;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-.profile-pic:hover {
-  transform: rotateY(360deg) scale(1.05);
-}
-header h1 {
-  font-size: 2.5rem;
-  margin-top: 15px;
-  text-shadow: 0 0 20px #00ff9d;
-}
-header p {
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: #aaffdd;
-}
+    body {
+        font-family: monospace;
+        color: #0f0;
+        background: black;
+        overflow-x: hidden;
+    }
 
-/* ===== SECTIONS ===== */
-section {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 20px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 15px;
-  box-shadow: 0 0 20px #00ff9d;
-  position: relative;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.4s;
-  overflow: hidden;
-}
-section:hover {
-  transform: rotateY(3deg) rotateX(3deg);
-}
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #00ff9d;
-  padding-bottom: 5px;
-}
+    /* Matrix Background */
+    canvas#matrix {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -2;
+    }
 
-/* ===== 4D ANIMATED BORDER ===== */
-section::before, section::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 200%; height: 200%;
-  background: linear-gradient(120deg, transparent, #00ff9d, transparent);
-  transform: rotate(45deg);
-  animation: borderMove 6s linear infinite;
-}
-section::after {
-  animation-delay: -3s;
-}
-@keyframes borderMove {
-  0% { transform: rotate(45deg) translateX(-50%); }
-  100% { transform: rotate(45deg) translateX(50%); }
-}
+    /* Overlay for 4D Glow */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(rgba(0,255,0,0.05), transparent);
+        z-index: -1;
+    }
 
-/* ===== CARDS ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-}
-.card {
-  background: rgba(0,0,0,0.8);
-  border: 1px solid #00ff9d;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 0 15px #00ff9d;
-  transition: transform 0.5s, box-shadow 0.5s;
-}
-.card:hover {
-  transform: translateY(-10px) scale(1.05) rotateY(5deg);
-  box-shadow: 0 0 30px #00ff9d, 0 0 60px #00ff9d;
-}
-a { color: #00ff9d; text-decoration: none; }
-a:hover { text-decoration: underline; }
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        padding: 10px 0;
+        text-align: center;
+        background: rgba(0,0,0,0.8);
+        box-shadow: 0 0 15px #0f0;
+        z-index: 100;
+    }
+    nav a {
+        color: #0f0;
+        margin: 0 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    nav a:hover { color: white; }
 
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #aaffdd;
-  background: rgba(0,0,0,0.8);
-  border-top: 1px solid #00ff9d;
-}
+    /* Sections */
+    section {
+        padding: 100px 20px;
+        max-width: 900px;
+        margin: auto;
+        background: rgba(0,0,0,0.7);
+        border: 1px solid #0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 20px #0f0;
+        margin-bottom: 50px;
+    }
+    h1, h2 {
+        text-align: center;
+        text-shadow: 0 0 10px #0f0;
+    }
+    p, li {
+        font-size: 1.1em;
+        line-height: 1.6em;
+    }
+
+    /* Profile Image 3D */
+    .profile-pic {
+        display: block;
+        margin: 120px auto 20px auto;
+        border-radius: 50%;
+        width: 180px;
+        height: 180px;
+        border: 3px solid #0f0;
+        box-shadow: 0 0 30px #0f0;
+        animation: float 4s ease-in-out infinite;
+        background-size: cover;
+        background-position: center;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotateY(0deg); }
+        50% { transform: translateY(-10px) rotateY(20deg); }
+    }
+
+    /* Links */
+    a {
+        color: #0f0;
+    }
 </style>
 </head>
 <body>
@@ -128,77 +101,101 @@ footer {
 <canvas id="matrix"></canvas>
 
 <header>
-  <img src="profile.jpg" alt="Profile Photo" class="profile-pic">
-  <h1>Mohammed Ayaz Ansari</h1>
-  <p>Computer Security & Forensics Student | Aspiring Cybersecurity Specialist</p>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
 </header>
 
-<section>
-  <h2>About Me</h2>
-  <p>I’m a motivated Computer Security & Forensics student at SUNY Broome, passionate about cybersecurity, digital forensics, and IT support. I have hands-on experience in network analysis, malware detection, and system hardening. I’m currently seeking part-time IT or cybersecurity opportunities to enhance my skills and gain real-world experience.</p>
+<!-- Profile -->
+<div class="profile-pic" style="background-image: url('profile.jpg');"></div>
+
+<!-- About -->
+<section id="about">
+    <h1>About Me</h1>
+    <p>I am Mohammed Ayaz Ansari, a Computer Security & Forensics student passionate about cybersecurity, ethical hacking, and protecting systems from cyber threats. I aim to work in fields involving malware analysis, digital forensics, and secure network design.</p>
 </section>
 
-<section>
-  <h2>Skills & Certifications</h2>
-  <div class="grid">
-    <div class="card"><h3>Networking & Security</h3><p>Wireshark, TCP/IP, System Hardening</p></div>
-    <div class="card"><h3>Forensic Tools</h3><p>VirtualBox, IDA Free, CyberChef</p></div>
-    <div class="card"><h3>Programming</h3><p>Python</p></div>
-    <div class="card"><h3>Certification</h3><p><a href="https://coursera.org/verify/UZCYGSSQH49L" target="_blank">Google IT Support Certificate</a></p></div>
-  </div>
+<!-- Skills -->
+<section id="skills">
+    <h2>Skills</h2>
+    <ul>
+        <li>Cybersecurity & Digital Forensics</li>
+        <li>Malware Analysis</li>
+        <li>Python Programming</li>
+        <li>Networking & Remote Security Methods</li>
+        <li>Incident Response</li>
+        <li>Data Management</li>
+    </ul>
 </section>
 
-<section>
-  <h2>Projects</h2>
-  <div class="grid">
-    <div class="card"><h3>Wireshark Network Traffic Analysis</h3><p>Captured and analyzed live network packets to monitor DNS lookups, ARP broadcasts, and ICMP traffic. Identified domain resolutions, local device discovery, and protocol behaviors in a home network.</p></div>
-    <div class="card"><h3>Malware Analysis Lab</h3><p>Used IDA Free and CyberChef to dissect a simulated DLL malware sample. Mapped function calls, decrypted XOR-obfuscated strings, and documented process injection behavior.</p></div>
-    <div class="card"><h3>DNS Threat Hunting Simulation</h3><p>Analyzed simulated DNS logs generated by makednslog to detect Indicators of Compromise (IoCs), such as DGA domains, spoofed IPs, and base64 data exfiltration.</p></div>
-  </div>
+<!-- Education -->
+<section id="education">
+    <h2>Education</h2>
+    <p><b>A.A.S. in Computer Security and Forensics</b> – Ongoing</p>
+    <ul>
+        <li>Relevant Courses: CST160 Malware Analysis, CST212 Computer Forensics I, CST103 General Security Concepts, CST104 Remote Security Methods</li>
+    </ul>
 </section>
 
-<section>
-  <h2>Contact</h2>
-  <p>📧 Email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p>
-  <p>🔗 LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile" target="_blank">View My LinkedIn Profile</a></p>
+<!-- Certifications -->
+<section id="certifications">
+    <h2>Certifications</h2>
+    <ul>
+        <li>Google Certificate – IT Security: Defense Against the Digital Dark Arts</li>
+    </ul>
 </section>
 
-<footer>
-  &copy; 2025 Mohammed Ayaz Ansari | Hacker-Themed 3D Portfolio
-</footer>
+<!-- Projects -->
+<section id="projects">
+    <h2>Projects</h2>
+    <p>Matrix-style personal portfolio with integrated cybersecurity theme.</p>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
+</section>
 
 <script>
-// ===== MATRIX RAIN =====
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+    // Matrix Background
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-const letters = 'アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const fontSize = 16;
-const columns = canvas.width / fontSize;
-const drops = Array.from({length: columns}).fill(1);
+    const letters = '01';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
 
-function draw() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#00ff9d';
-  ctx.font = fontSize + 'px monospace';
-  for(let i = 0; i < drops.length; i++) {
-    const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-      drops[i] = 0;
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
     }
-    drops[i]++;
-  }
-}
-setInterval(draw, 33);
+    setInterval(draw, 35);
 
-window.addEventListener('resize', () => {
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-});
+    window.addEventListener('resize', () => {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+    });
 </script>
 
 </body>
