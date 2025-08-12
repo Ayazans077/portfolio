@@ -1,82 +1,217 @@
-/* === New Hero (split layout) === */
-.hero{
-  position: relative;
-  min-height: 88vh;
-  display: grid;
-  place-items: center;
-  padding: 40px 20px;
-  overflow: hidden;
-  background:
-    linear-gradient( to right, rgba(15,23,42,0.85), rgba(15,23,42,0.55) ),
-    url('hero-bg.jpg') center/cover no-repeat;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Ayaz Ansari | Cybersecurity Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    /* Hero Section with Slideshow */
+    header {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      animation: slideshow 15s infinite;
+      z-index: -2;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.7); /* Dark overlay */
+      z-index: -1;
+    }
+    @keyframes slideshow {
+      0%   { background-image: url('https://source.unsplash.com/1600x900/?technology'); }
+      33%  { background-image: url('https://source.unsplash.com/1600x900/?cybersecurity'); }
+      66%  { background-image: url('https://source.unsplash.com/1600x900/?network'); }
+      100% { background-image: url('https://source.unsplash.com/1600x900/?computer'); }
+    }
+    header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #38bdf8;
+      margin-bottom: 20px;
+      transition: transform 0.4s ease;
+    }
+    header img:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0px 0px 25px #38bdf8;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #38bdf8;
+      animation: slideInDown 1.2s ease-in-out;
+    }
+    header p {
+      font-size: 1.3rem;
+      color: #f1f5f9;
+      margin-top: 10px;
+      animation: slideInUp 1.2s ease-in-out;
+    }
+    section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #38bdf8;
+      border-bottom: 2px solid #334155;
+      padding-bottom: 10px;
+    }
+    .skills, .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.6s ease, background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      transform: rotateY(5deg) scale(1.03);
+      background: #334155;
+      box-shadow: 0px 8px 25px rgba(56, 189, 248, 0.3);
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0a192f;
+      color: #94a3b8;
+      margin-top: 40px;
+    }
+    /* Animations */
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="profile.jpg" alt="Profile Photo">
+    <h1>Mohammed Ayaz Ansari</h1>
+    <p>Computer Security & Forensics Student | Aspiring Cybersecurity Specialist</p>
+  </header>
 
-.hero-inner{
-  max-width: 1200px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1.2fr .8fr; /* text | image */
-  gap: 32px;
-  align-items: center;
-}
+  <section>
+    <h2>About Me</h2>
+    <p>I’m a motivated Computer Security & Forensics student at SUNY Broome, passionate about cybersecurity, digital forensics, and IT support. I have hands-on experience in network analysis, malware detection, and system hardening. I’m currently seeking part-time IT or cybersecurity opportunities to enhance my skills and gain real-world experience.</p>
+  </section>
 
-.hero-content h1{
-  font-size: clamp(2rem, 4vw + .5rem, 3.4rem);
-  line-height: 1.1;
-  color: #e2e8f0;
-  margin: 10px 0 14px;
-}
-.hero-content .highlight{ color:#38bdf8; font-weight:700; }
+  <section>
+    <h2>Skills & Certifications</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>Networking & Security</h3>
+        <p>Wireshark, TCP/IP, System Hardening</p>
+      </div>
+      <div class="card">
+        <h3>Forensic Tools</h3>
+        <p>VirtualBox, IDA Free, CyberChef</p>
+      </div>
+      <div class="card">
+        <h3>Programming</h3>
+        <p>Python</p>
+      </div>
+      <div class="card">
+        <h3>Certification</h3>
+        <p><a href="https://coursera.org/verify/UZCYGSSQH49L" target="_blank">Google IT Support Certificate</a></p>
+      </div>
+    </div>
+  </section>
 
-.hero-content .eyebrow{
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  font-size:.85rem;
-  color:#94a3b8;
-}
+  <section>
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>Wireshark Network Traffic Analysis</h3>
+        <p>Captured and analyzed live network packets to monitor DNS lookups, ARP broadcasts, and ICMP traffic. Identified domain resolutions, local device discovery, and protocol behaviors in a home network.</p>
+      </div>
+      <div class="card">
+        <h3>Malware Analysis Lab</h3>
+        <p>Used IDA Free and CyberChef to dissect a simulated DLL malware sample. Mapped function calls, decrypted XOR-obfuscated strings, and documented process injection behavior.</p>
+      </div>
+      <div class="card">
+        <h3>DNS Threat Hunting Simulation</h3>
+        <p>Analyzed simulated DNS logs generated by makednslog to detect Indicators of Compromise (IoCs), such as DGA domains, spoofed IPs, and base64 data exfiltration.</p>
+      </div>
+    </div>
+  </section>
 
-.hero-content .sub{
-  max-width: 58ch;
-  color:#cbd5e1;
-  font-size: clamp(1rem, .6vw + .8rem, 1.15rem);
-  margin: 12px 0 22px;
-}
+  <section>
+    <h2>Contact</h2>
+    <p>📧 Email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p>
+    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile" target="_blank">View My LinkedIn Profile</a></p>
+  </section>
 
-.cta{ display:flex; gap:12px; flex-wrap:wrap; }
-.btn{
-  padding:10px 16px;
-  border-radius:10px;
-  background:#38bdf8;
-  color:#0b1220;
-  font-weight:600;
-  text-decoration:none;
-}
-.btn.ghost{
-  background:transparent;
-  border:1.5px solid #38bdf8;
-  color:#e2e8f0;
-}
+  <footer>
+    &copy; 2025 Mohammed Ayaz Ansari | Modern Animated Portfolio
+  </footer>
 
-/* Right-side portrait */
-.hero-image{
-  position: relative;
-  display:flex;
-  justify-content:center;
-  align-items:end;
-  min-height: 320px;
-}
-.hero-image img{
-  width: min(420px, 80%);
-  height: auto;
-  filter: drop-shadow(0 18px 30px rgba(56,189,248,.25));
-  transform: translateY(6px);
-}
+  <script>
+    // Scroll animation for sections
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
 
-/* Mobile stacking */
-@media (max-width: 900px){
-  .hero-inner{ grid-template-columns: 1fr; }
-  .hero{ padding-top: 70px; padding-bottom: 40px; }
-  .hero-image{ order:-1; min-height:220px; }
-  .hero-image img{ width: 58%; }
-}
-
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
