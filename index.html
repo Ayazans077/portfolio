@@ -1,202 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohammed Ayaz Ansari | Portfolio</title>
-<style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+/* === New Hero (split layout) === */
+.hero{
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  overflow: hidden;
+  background:
+    linear-gradient( to right, rgba(15,23,42,0.85), rgba(15,23,42,0.55) ),
+    url('hero-bg.jpg') center/cover no-repeat;
+}
 
-    body {
-        font-family: monospace;
-        color: #0f0;
-        background: black;
-        overflow-x: hidden;
-    }
+.hero-inner{
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr; /* text | image */
+  gap: 32px;
+  align-items: center;
+}
 
-    /* Matrix Background */
-    canvas#matrix {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -2;
-    }
+.hero-content h1{
+  font-size: clamp(2rem, 4vw + .5rem, 3.4rem);
+  line-height: 1.1;
+  color: #e2e8f0;
+  margin: 10px 0 14px;
+}
+.hero-content .highlight{ color:#38bdf8; font-weight:700; }
 
-    /* Overlay for 4D Glow */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: radial-gradient(rgba(0,255,0,0.05), transparent);
-        z-index: -1;
-    }
+.hero-content .eyebrow{
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.85rem;
+  color:#94a3b8;
+}
 
-    header {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        padding: 10px 0;
-        text-align: center;
-        background: rgba(0,0,0,0.8);
-        box-shadow: 0 0 15px #0f0;
-        z-index: 100;
-    }
-    nav a {
-        color: #0f0;
-        margin: 0 20px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s;
-    }
-    nav a:hover { color: white; }
+.hero-content .sub{
+  max-width: 58ch;
+  color:#cbd5e1;
+  font-size: clamp(1rem, .6vw + .8rem, 1.15rem);
+  margin: 12px 0 22px;
+}
 
-    /* Sections */
-    section {
-        padding: 100px 20px;
-        max-width: 900px;
-        margin: auto;
-        background: rgba(0,0,0,0.7);
-        border: 1px solid #0f0;
-        border-radius: 10px;
-        box-shadow: 0 0 20px #0f0;
-        margin-bottom: 50px;
-    }
-    h1, h2 {
-        text-align: center;
-        text-shadow: 0 0 10px #0f0;
-    }
-    p, li {
-        font-size: 1.1em;
-        line-height: 1.6em;
-    }
+.cta{ display:flex; gap:12px; flex-wrap:wrap; }
+.btn{
+  padding:10px 16px;
+  border-radius:10px;
+  background:#38bdf8;
+  color:#0b1220;
+  font-weight:600;
+  text-decoration:none;
+}
+.btn.ghost{
+  background:transparent;
+  border:1.5px solid #38bdf8;
+  color:#e2e8f0;
+}
 
-    /* Profile Image 3D */
-    .profile-pic {
-        display: block;
-        margin: 120px auto 20px auto;
-        border-radius: 50%;
-        width: 180px;
-        height: 180px;
-        border: 3px solid #0f0;
-        box-shadow: 0 0 30px #0f0;
-        animation: float 4s ease-in-out infinite;
-        background-size: cover;
-        background-position: center;
-    }
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotateY(0deg); }
-        50% { transform: translateY(-10px) rotateY(20deg); }
-    }
+/* Right-side portrait */
+.hero-image{
+  position: relative;
+  display:flex;
+  justify-content:center;
+  align-items:end;
+  min-height: 320px;
+}
+.hero-image img{
+  width: min(420px, 80%);
+  height: auto;
+  filter: drop-shadow(0 18px 30px rgba(56,189,248,.25));
+  transform: translateY(6px);
+}
 
-    /* Links */
-    a {
-        color: #0f0;
-    }
-</style>
-</head>
-<body>
+/* Mobile stacking */
+@media (max-width: 900px){
+  .hero-inner{ grid-template-columns: 1fr; }
+  .hero{ padding-top: 70px; padding-bottom: 40px; }
+  .hero-image{ order:-1; min-height:220px; }
+  .hero-image img{ width: 58%; }
+}
 
-<canvas id="matrix"></canvas>
-
-<header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
-
-<!-- Profile -->
-<div class="profile-pic" style="background-image: url('profile.jpg');"></div>
-
-<!-- About -->
-<section id="about">
-    <h1>About Me</h1>
-    <p>I am Mohammed Ayaz Ansari, a Computer Security & Forensics student passionate about cybersecurity, ethical hacking, and protecting systems from cyber threats. I aim to work in fields involving malware analysis, digital forensics, and secure network design.</p>
-</section>
-
-<!-- Skills -->
-<section id="skills">
-    <h2>Skills</h2>
-    <ul>
-        <li>Cybersecurity & Digital Forensics</li>
-        <li>Malware Analysis</li>
-        <li>Python Programming</li>
-        <li>Networking & Remote Security Methods</li>
-        <li>Incident Response</li>
-        <li>Data Management</li>
-    </ul>
-</section>
-
-<!-- Education -->
-<section id="education">
-    <h2>Education</h2>
-    <p><b>A.A.S. in Computer Security and Forensics</b> – Ongoing</p>
-    <ul>
-        <li>Relevant Courses: CST160 Malware Analysis, CST212 Computer Forensics I, CST103 General Security Concepts, CST104 Remote Security Methods</li>
-    </ul>
-</section>
-
-<!-- Certifications -->
-<section id="certifications">
-    <h2>Certifications</h2>
-    <ul>
-        <li>Google Certificate – IT Security: Defense Against the Digital Dark Arts</li>
-    </ul>
-</section>
-
-<!-- Projects -->
-<section id="projects">
-    <h2>Projects</h2>
-    <p>Matrix-style personal portfolio with integrated cybersecurity theme.</p>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-</section>
-
-<script>
-    // Matrix Background
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-
-    const letters = '01';
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#0F0';
-        ctx.font = fontSize + 'px monospace';
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = letters.charAt(Math.floor(Math.random() * letters.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-    setInterval(draw, 35);
-
-    window.addEventListener('resize', () => {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-    });
-</script>
-
-</body>
-</html>
