@@ -1,211 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mohammed Ayaz Ansari | Cybersecurity Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammed Ayaz Ansari | Cybersecurity Portfolio</title>
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --panel:#1e293b;     /* slate-800 */
+      --muted:#94a3b8;     /* slate-400 */
+      --text:#e2e8f0;      /* slate-200 */
+      --brand:#38bdf8;     /* sky-400 */
+      --brand-2:#7dd3fc;   /* sky-300 */
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.6}
 
-<style>
-  :root{
-    --bg:#0b1220;           /* deep navy */
-    --panel:#0f172a;        /* slate-900 */
-    --muted:#8aa3c2;        /* slate-400/blue */
-    --text:#e5f0ff;         /* light */
-    --brand:#38bdf8;        /* sky-400 */
-    --brand-2:#60a5fa;      /* blue-400 */
-    --ring:#134e6f;         /* accent ring */
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);}
+    /* ===== Top Hero (split layout + particles) ===== */
+    header.hero{
+      position:relative;min-height:88vh;display:grid;place-items:center;overflow:hidden;
+      padding:40px 20px;
+      background:
+        linear-gradient(to right, rgba(15,23,42,.9), rgba(15,23,42,.6)),
+        url('hero-bg.jpg') center/cover no-repeat;
+    }
+    /* particle canvas sits behind content */
+    #particles{
+      position:absolute;inset:0;z-index:0;
+    }
+    .hero-inner{
+      position:relative;z-index:1; /* above particles */
+      max-width:1200px;width:100%;
+      display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;
+    }
+    .eyebrow{
+      letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;color:var(--muted);
+    }
+    h1.hero-title{
+      font-size:clamp(2rem,4vw + .5rem,3.6rem);line-height:1.1;margin:10px 0 10px;
+    }
+    .hero-title .name{color:var(--text);font-weight:800}
+    .hero-title .typed{color:var(--brand);font-weight:700;white-space:nowrap}
+    p.hero-sub{max-width:60ch;color:#cbd5e1;font-size:clamp(1rem,.6vw + .8rem,1.15rem);margin:12px 0 22px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:10px;background:var(--brand);color:#0b1220;font-weight:600;text-decoration:none}
+    .btn.ghost{background:transparent;border:1.5px solid var(--brand);color:var(--text)}
 
-  /* ====== NAV (sticky) ====== */
-  header{
-    position:sticky; top:0; z-index:30;
-    backdrop-filter:saturate(150%) blur(6px);
-    background:linear-gradient(180deg, rgba(5,10,20,.6), rgba(5,10,20,0));
-    border-bottom:1px solid rgba(96,165,250,.12);
-  }
-  .nav{
-    max-width:1200px;margin:auto;padding:14px 20px;display:flex;gap:20px;align-items:center;justify-content:flex-end;
-  }
-  .nav a{color:#cfe7ff;text-decoration:none;font-weight:600;opacity:.85}
-  .nav a:hover{opacity:1;text-shadow:0 0 12px var(--brand)}
+    .hero-image{display:flex;justify-content:center;align-items:end;min-height:320px}
+    .hero-image img{
+      width:min(420px,80%);height:auto;border-radius:16px;
+      filter:drop-shadow(0 18px 30px rgba(56,189,248,.25));
+      transform:translateY(6px)
+    }
+    .hint{margin-top:10px;font-size:.9rem;color:var(--muted)}
 
-  /* ====== HERO ====== */
-  .hero{
-    position:relative;min-height:88vh;display:grid;place-items:center;overflow:hidden;
-    background:
-      radial-gradient(1200px 600px at -10% 10%, rgba(56,189,248,.10), transparent 55%),
-      radial-gradient(900px 500px at 110% 0%, rgba(96,165,250,.08), transparent 50%),
-      radial-gradient(600px 400px at 50% 100%, rgba(56,189,248,.07), transparent 55%),
-      #08101e;
-  }
-  /* optional soft photo backdrop */
-  .hero::before{
-    content:""; position:absolute; inset:0; z-index:0;
-    background: url('hero-bg.jpg') center/cover no-repeat;
-    opacity:.08; pointer-events:none;
-  }
-  /* network particles canvas */
-  #net{
-    position:absolute; inset:0; z-index:1; pointer-events:none;
-    opacity:.65; mix-blend-mode:screen;
-  }
+    @media (max-width:900px){
+      .hero-inner{grid-template-columns:1fr}
+      .hero-image{order:-1;min-height:220px}
+      .hero-image img{width:62%}
+    }
 
-  .hero-inner{
-    position:relative; z-index:2;
-    max-width:1200px; width:100%; padding:60px 24px;
-    display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;
-  }
-  .eyebrow{
-    letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
-    font-size:.9rem; margin-bottom:10px;
-  }
-  .title{
-    line-height:1.05; font-weight:800;
-    font-size:clamp(2rem, calc(1.2rem + 3.5vw), 4rem);
-    text-shadow:0 4px 24px rgba(56,189,248,.18);
-  }
-  .title .line-2{ color:var(--brand); display:block; }
-  .sub{
-    margin-top:16px; max-width:60ch; color:#cfe2ff; opacity:.95;
-    font-size:clamp(1rem, .6vw + .9rem, 1.15rem);
-  }
+    /* ===== Sections ===== */
+    section{max-width:1000px;margin:60px auto;padding:0 20px;opacity:0;transform:translateY(40px);transition:all .8s ease-out}
+    section.visible{opacity:1;transform:translateY(0)}
+    section h2{
+      font-size:2rem;margin-bottom:18px;color:var(--brand);
+      border-bottom:2px solid #334155;padding-bottom:10px
+    }
 
-  .cta{ display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
-  .btn{
-    padding:12px 18px; border-radius:12px; font-weight:700; letter-spacing:.02em;
-    text-decoration:none; display:inline-block; transition:transform .15s ease, box-shadow .2s ease;
-  }
-  .btn.primary{ background:linear-gradient(90deg, var(--brand), var(--brand-2)); color:#08101e; box-shadow:0 12px 30px rgba(56,189,248,.25);}
-  .btn.ghost{ border:1.5px solid rgba(96,165,250,.45); color:#eaf5ff; background:rgba(14,25,44,.35); }
-  .btn:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(56,189,248,.33); }
+    .skills,.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .card{
+      background:var(--panel);padding:20px;border-radius:14px;
+      transition:transform .5s ease, background .35s ease, box-shadow .35s ease;
+      border:1px solid #263344
+    }
+    .card:hover{transform:translateY(-4px);background:#253246;box-shadow:0 10px 28px rgba(56,189,248,.18)}
+    .card h3{margin-bottom:8px}
 
-  /* photo card */
-  .photo-wrap{
-    justify-self:center; width:min(420px, 80%); aspect-ratio:1/1; border-radius:18px; overflow:hidden;
-    box-shadow:0 24px 70px rgba(56,189,248,.22), inset 0 0 0 1px rgba(96,165,250,.25);
-    position:relative; isolation:isolate;
-  }
-  .photo-wrap::after{
-    content:""; position:absolute; inset:-18px; border-radius:28px; z-index:-1;
-    background:radial-gradient(400px 220px at 20% 10%, rgba(56,189,248,.25), transparent 60%);
-    filter:blur(30px);
-  }
-  .photo{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* ===== Sections (placeholders so links work; fill later) ===== */
-  section{max-width:1000px;margin:60px auto;padding:0 20px;}
-  h2{color:var(--brand); margin-bottom:10px}
-
-  @media (max-width:960px){
-    .hero-inner{ grid-template-columns:1fr; gap:28px; }
-    .photo-wrap{ width:min(360px, 85%); }
-  }
-</style>
+    a{color:var(--brand);text-decoration:none}
+    footer{text-align:center;padding:24px;background:#0a192f;color:#94a3b8;margin-top:40px;border-top:1px solid #1b2a3d}
+  </style>
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <canvas id="particles" aria-hidden="true"></canvas>
 
-<section class="hero" aria-label="Hero">
-  <canvas id="net"></canvas>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="eyebrow">Cybersecurity & Digital Forensics</p>
+        <h1 class="hero-title">
+          <span class="name">Mohammed Ayaz Ansari</span><br/>
+          <span class="typed" id="typed">Loading…</span>
+        </h1>
+        <p class="hero-sub">
+          I analyze networks, reverse engineer malware, and harden systems.
+          I’m looking for part-time IT / cybersecurity roles to grow and contribute.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#projects">See Projects</a>
+          <a class="btn ghost" href="#contact">Contact Me</a>
+        </div>
+        <p class="hint">Tip: add <code>portrait.png</code> and <code>hero-bg.jpg</code> to make this section look even better.</p>
+      </div>
 
-  <div class="hero-inner">
-    <div>
-      <div class="eyebrow">CYBERSECURITY & DIGITAL FORENSICS</div>
-      <h1 class="title">
-        Mohammed Ayaz Ansari
-        <span class="line-2">Malware Analysis Enthusiast</span>
-      </h1>
-      <p class="sub">
-        I analyze networks, reverse engineer malware, and harden systems.
-        I’m looking for part-time IT / cybersecurity roles to grow and contribute.
-      </p>
-      <div class="cta">
-        <a class="btn primary" href="#projects">See Projects</a>
-        <a class="btn ghost" href="#contact">Contact Me</a>
+      <div class="hero-image">
+        <!-- If you later add a transparent cutout, name it portrait.png and swap the src -->
+        <img src="profile.jpg" alt="Portrait of Mohammed Ayaz Ansari">
       </div>
     </div>
+  </header>
 
-    <div class="photo-wrap">
-      <img src="profile.jpg" alt="Portrait of Mohammed Ayaz Ansari" class="photo">
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a motivated Computer Security & Forensics student at SUNY Broome, passionate about cybersecurity,
+      digital forensics, and IT support. I have hands-on experience in network analysis, malware detection, and
+      system hardening. I’m currently seeking part-time IT or cybersecurity opportunities to enhance my skills
+      and gain real-world experience.
+    </p>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills">
+    <h2>Skills & Certifications</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>Networking & Security</h3>
+        <p>Wireshark, Nmap, TCP/IP, System Hardening</p>
+      </div>
+      <div class="card">
+        <h3>Forensic Tools</h3>
+        <p>VirtualBox, IDA Free, Autopsy, CyberChef</p>
+      </div>
+      <div class="card">
+        <h3>Programming</h3>
+        <p>Python</p>
+      </div>
+      <div class="card">
+        <h3>Certification</h3>
+        <p><a href="https://coursera.org/verify/UZCYGSSQH49L" target="_blank" rel="noopener">Google IT Support Certificate</a></p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Placeholder sections so nav anchors work; keep or replace with your full sections -->
-<section id="projects"><h2>Projects</h2><p>Coming next…</p></section>
-<section id="skills"><h2>Skills</h2><p>Wireshark, Nmap, Python, IDA Free, CyberChef, System Hardening…</p></section>
-<section id="contact"><h2>Contact</h2><p>Email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p></section>
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>Wireshark Network Traffic Analysis</h3>
+        <p>Captured and analyzed live network packets to monitor DNS lookups, ARP broadcasts, and ICMP traffic. Identified domain resolutions, local device discovery, and protocol behaviors in a home network.</p>
+      </div>
+      <div class="card">
+        <h3>Malware Analysis Lab</h3>
+        <p>Used IDA Free and CyberChef to dissect a simulated DLL malware sample. Mapped function calls, decrypted XOR-obfuscated strings, and documented process injection behavior.</p>
+      </div>
+      <div class="card">
+        <h3>DNS Threat Hunting Simulation</h3>
+        <p>Analyzed simulated DNS logs generated by makednslog to detect Indicators of Compromise (IoCs), such as DGA domains, spoofed IPs, and base64 data exfiltration.</p>
+      </div>
+    </div>
+  </section>
 
-<script>
-/* === Lightweight “network” background === */
-(() => {
-  const c = document.getElementById('net');
-  const ctx = c.getContext('2d');
-  let W, H, pts = [];
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>📧 Email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p>
+    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile" target="_blank" rel="noopener">View My LinkedIn Profile</a></p>
+  </section>
 
-  function resize(){
-    W = c.width = c.offsetWidth = c.parentElement.clientWidth;
-    H = c.height = c.offsetHeight = c.parentElement.clientHeight;
-    make();
-  }
-  function rand(a,b){ return Math.random()*(b-a)+a; }
+  <footer>
+    &copy; 2025 Mohammed Ayaz Ansari | Interactive Portfolio
+  </footer>
 
-  function make(){
-    pts.length = 0;
-    const n = Math.min(110, Math.floor(W*H/14000));
-    for(let i=0;i<n;i++){
-      pts.push({
-        x: rand(0,W), y: rand(0,H),
-        vx: rand(-.35,.35), vy: rand(-.35,.35),
-        r: rand(1,2.1)
-      });
-    }
-  }
+  <script>
+    /* ========= Typing Effect ========= */
+    (function(){
+      const el = document.getElementById('typed');
+      const roles = [
+        "Computer Security & Forensics Student",
+        "Malware Analysis Enthusiast",
+        "Network Forensics Explorer",
+        "Aspiring Cybersecurity Specialist"
+      ];
+      let i = 0, j = 0, typing = true, pause = 900;
 
-  function step(){
-    ctx.clearRect(0,0,W,H);
+      function tick(){
+        const word = roles[i % roles.length];
+        if(typing){
+          el.textContent = word.slice(0, j++);
+          if(j > word.length){ typing = false; setTimeout(tick, pause); return; }
+        }else{
+          el.textContent = word.slice(0, j--);
+          if(j < 0){ typing = true; i++; }
+        }
+        setTimeout(tick, typing ? 45 : 35);
+      }
+      tick();
+    })();
 
-    // nodes
-    for(const p of pts){
-      p.x += p.vx; p.y += p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
+    /* ========= Particles Background (lightweight) ========= */
+    (function(){
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let W, H, points = [];
 
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = "rgba(96,165,250,.9)";
-      ctx.fill();
-    }
+      function size(){ W = canvas.width = window.innerWidth; H = canvas.height = Math.max(400, window.innerHeight*0.88); }
+      function rand(min,max){ return Math.random()*(max-min)+min; }
 
-    // edges
-    for(let i=0;i<pts.length;i++){
-      for(let j=i+1;j<pts.length;j++){
-        const a=pts[i], b=pts[j];
-        const dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy;
-        if(d2 < 150*150){
-          const alpha = 1 - (d2/(150*150));
-          ctx.strokeStyle = `rgba(56,189,248,${alpha*.28})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      function init(){
+        size();
+        points = [];
+        const count = Math.min(90, Math.floor(W*H/18000));
+        for(let i=0;i<count;i++){
+          points.push({
+            x: rand(0,W), y: rand(0,H),
+            vx: rand(-.35,.35), vy: rand(-.35,.35),
+            r: rand(1,2.2)
+          });
         }
       }
-    }
-    requestAnimationFrame(step);
-  }
 
-  window.addEventListener('resize', resize);
-  resize(); step();
-})();
-</script>
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        // draw & move
+        for(const p of points){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x<0||p.x>W) p.vx*=-1;
+          if(p.y<0||p.y>H) p.vy*=-1;
+
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle = "rgba(125, 211, 252, .75)"; // sky-300
+          ctx.fill();
+        }
+        // soft connections
+        for(let i=0;i<points.length;i++){
+          for(let j=i+1;j<points.length;j++){
+            const a = points[i], b = points[j];
+            const dx = a.x-b.x, dy = a.y-b.y, d2 = dx*dx + dy*dy;
+            if(d2 < 140*140){
+              const alpha = 1 - (d2 / (140*140));
+              ctx.strokeStyle = `rgba(56,189,248, ${alpha*.28})`; // sky-400
+              ctx.lineWidth = 1;
+              ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.addEventListener('resize', init);
+      init(); step();
+    })();
+
+    /* ========= Scroll reveal ========= */
+    (function(){
+      const sections = document.querySelectorAll('section');
+      const io = new IntersectionObserver(entries=>{
+        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+      }, {threshold:.18});
+      sections.forEach(s=>io.observe(s));
+    })();
+  </script>
 </body>
 </html>
