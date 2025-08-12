@@ -3,215 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohammed Ayaz Ansari | Hacker Vibe Portfolio</title>
+<title>Mohammed Ayaz Ansari | Cyber Portfolio</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: monospace;
-    }
-    body {
-        background: black;
-        color: #00ff66;
-        overflow-x: hidden;
-    }
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-    nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 10px 0;
-        text-align: center;
-        z-index: 1000;
-        border-bottom: 1px solid #00ff66;
-    }
-    nav a {
-        color: #00ff66;
-        margin: 0 15px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    nav a:hover {
-        color: white;
-    }
-    header {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-    }
-    header img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 3px solid #00ff66;
-        margin-bottom: 20px;
-    }
-    .terminal {
-        background: rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #00ff66;
-        width: 80%;
-        max-width: 700px;
-        text-align: left;
-        color: #00ff66;
-        font-size: 1.1rem;
-    }
-    section {
-        padding: 50px 20px;
-        max-width: 900px;
-        margin: auto;
-    }
-    h2 {
-        color: #00ff66;
-        border-bottom: 1px solid #00ff66;
-        margin-bottom: 20px;
-    }
-    .card {
-        background: rgba(0, 0, 0, 0.7);
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        border: 1px solid #00ff66;
-    }
-    footer {
-        text-align: center;
-        padding: 15px;
-        border-top: 1px solid #00ff66;
-        margin-top: 30px;
-    }
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+  font-family: 'Courier New', monospace;
+  background: black;
+  overflow-x: hidden;
+  color: #00ff99;
+}
+
+/* ===== CANVAS (Matrix Effect) ===== */
+#matrixCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* ===== BACKGROUND IMAGE ===== */
+#bgImage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  opacity: 0.05;
+  filter: drop-shadow(0 0 20px #00ff99);
+  z-index: -1;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px 0;
+  text-align: center;
+  z-index: 10;
+}
+
+nav a {
+  color: #00ff99;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-shadow: 0 0 10px #00ff99;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: cyan;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3em;
+  color: #00ff99;
+  text-shadow: 0 0 10px #00ff99, 0 0 20px cyan;
+  animation: floatText 4s infinite ease-in-out;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-top: 10px;
+  color: #aaffcc;
+}
+
+/* ===== FLOAT ANIMATION ===== */
+@keyframes floatText {
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateY(5deg); }
+}
+
+/* ===== SECTION STYLING ===== */
+section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: auto;
+  color: #aaffcc;
+}
+
+section h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #00ff99;
+  text-shadow: 0 0 10px #00ff99;
+}
+
+/* ===== CONTACT BUTTON ===== */
+button {
+  background: transparent;
+  border: 2px solid #00ff99;
+  padding: 10px 20px;
+  color: #00ff99;
+  font-size: 1.2em;
+  cursor: pointer;
+  text-shadow: 0 0 5px #00ff99;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00ff99;
+  color: black;
+  box-shadow: 0 0 20px #00ff99;
+}
+
+/* ===== PARTICLE SPARKS ===== */
+.spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #00ff99;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fadeSpark 0.5s linear forwards;
+}
+
+@keyframes fadeSpark {
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
 </style>
 </head>
 <body>
 
-<canvas id="matrix"></canvas>
+<!-- Background Canvas -->
+<canvas id="matrixCanvas"></canvas>
 
+<!-- Background Image -->
+<img id="bgImage" src="myphoto.png" alt="Profile">
+
+<!-- Navbar -->
 <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
 </nav>
 
-<header>
-    <img src="YOUR_IMAGE_URL" alt="Profile Photo">
-    <div class="terminal">
-        <span id="typing"></span>
-    </div>
-</header>
+<!-- Hero Section -->
+<div class="hero">
+  <h1>Mohammed Ayaz Ansari</h1>
+  <p>Computer Security & Forensics Student | Aspiring Cybersecurity Specialist</p>
+</div>
 
+<!-- About -->
 <section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-        I am a Computer Security & Forensics student passionate about cybersecurity, ethical hacking, and protecting systems from cyber threats.
-    </div>
+  <h2>About Me</h2>
+  <p>I am a dedicated Computer Security & Forensics student with a passion for ethical hacking, digital forensics, and malware analysis. I love building and securing systems, learning new security tools, and solving cyber puzzles.</p>
 </section>
 
+<!-- Skills -->
 <section id="skills">
-    <h2>Skills</h2>
-    <div class="card">Cybersecurity</div>
-    <div class="card">Digital Forensics</div>
-    <div class="card">Networking</div>
-    <div class="card">Python Scripting</div>
+  <h2>Skills</h2>
+  <p>Cybersecurity, Digital Forensics, Malware Analysis, Python Programming, Penetration Testing, Network Security.</p>
 </section>
 
+<!-- Projects -->
 <section id="projects">
-    <h2>Projects</h2>
-    <div class="card">Malware Analysis Labs</div>
-    <div class="card">Penetration Testing Practice</div>
-    <div class="card">Personal Security Blog</div>
+  <h2>Projects</h2>
+  <p>• Reverse Engineered a custom EXE malware sample using IDA Pro.<br>• Built a simulated DNS log threat-hunting system.<br>• Created a secure website with penetration testing measures.</p>
 </section>
 
+<!-- Contact -->
 <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-        Email: <a href="mailto:your-email@example.com" style="color:#00ff66">your-email@example.com</a><br>
-        GitHub: <a href="https://github.com/yourusername" target="_blank" style="color:#00ff66">github.com/yourusername</a>
-    </div>
+  <h2>Contact</h2>
+  <p>Email: mohammed.ayaz@example.com</p>
+  <button onclick="alert('Thanks for reaching out!')">Send Message</button>
 </section>
 
-<footer>
-    © 2025 Mohammed Ayaz Ansari. All Rights Reserved.
-</footer>
-
+<!-- JavaScript -->
 <script>
-    // Typing effect
-    const text = [
-        "Initializing portfolio...",
-        "Loading skills...",
-        "Welcome to Mohammed Ayaz Ansari's Hacker Terminal Portfolio"
-    ];
-    let count = 0;
-    let index = 0;
-    let currentText = '';
-    let letter = '';
-    
-    (function type(){
-        if(count === text.length){
-            count = 0;
-        }
-        currentText = text[count];
-        letter = currentText.slice(0, ++index);
+// ===== MATRIX EFFECT =====
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
 
-        document.getElementById('typing').textContent = letter;
-        if(letter.length === currentText.length){
-            count++;
-            index = 0;
-            setTimeout(type, 1200);
-        } else {
-            setTimeout(type, 80);
-        }
-    }());
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-    // Matrix background
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
+const letters = '01';
+const fontSize = 16;
+const columns = canvas.width / fontSize;
 
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+const drops = [];
+for (let x = 0; x < columns; x++) drops[x] = 1;
 
-    const letters = "01";
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const drops = [];
-    for(let x = 0; x < columns; x++) drops[x] = 1;
+  ctx.fillStyle = '#00ff99';
+  ctx.font = fontSize + 'px monospace';
 
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        ctx.fillStyle = "#0F0";
-        ctx.font = fontSize + "px monospace";
-        for(let i = 0; i < drops.length; i++) {
-            const text = letters.charAt(Math.floor(Math.random() * letters.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 35);
 
-            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-    setInterval(draw, 33);
+// ===== MOUSE PARTICLE SPARKS =====
+document.addEventListener('mousemove', e => {
+  const spark = document.createElement('div');
+  spark.className = 'spark';
+  spark.style.left = e.pageX + 'px';
+  spark.style.top = e.pageY + 'px';
+  document.body.appendChild(spark);
+  setTimeout(() => spark.remove(), 500);
+});
 
-    window.addEventListener('resize', () => {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-    });
+window.addEventListener('resize', () => {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+});
 </script>
 
 </body>
 </html>
+
