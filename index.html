@@ -1,328 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohammed Ayaz Ansari | Cybersecurity Portfolio</title>
-  <style>
-    :root{
-      --bg:#0f172a;        /* slate-900 */
-      --panel:#1e293b;     /* slate-800 */
-      --muted:#94a3b8;     /* slate-400 */
-      --text:#e2e8f0;      /* slate-200 */
-      --brand:#38bdf8;     /* sky-400 */
-      --brand-2:#7dd3fc;   /* sky-300 */
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.6}
-
-    /* ===== Top Hero (split layout + particles) ===== */
-    header.hero{
-      position:relative;min-height:88vh;display:grid;place-items:center;overflow:hidden;
-      padding:40px 20px;
-      background:
-        linear-gradient(to right, rgba(15,23,42,.9), rgba(15,23,42,.6)),
-        url('hero-bg.jpg') center/cover no-repeat;
-    }
-    #particles{position:absolute;inset:0;z-index:0}
-    .hero-inner{
-      position:relative;z-index:1;max-width:1200px;width:100%;
-      display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;
-    }
-    .eyebrow{letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
-    h1.hero-title{font-size:clamp(2rem,4vw + .5rem,3.6rem);line-height:1.1;margin:10px 0 10px}
-    .hero-title .name{color:var(--text);font-weight:800}
-    .hero-title .typed{color:var(--brand);font-weight:700;white-space:nowrap}
-    p.hero-sub{max-width:60ch;color:#cbd5e1;font-size:clamp(1rem,.6vw + .8rem,1.15rem);margin:12px 0 22px}
-    .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{padding:10px 16px;border-radius:10px;background:var(--brand);color:#0b1220;font-weight:600;text-decoration:none}
-    .btn.ghost{background:transparent;border:1.5px solid var(--brand);color:var(--text)}
-
-    .hero-image{display:flex;justify-content:center;align-items:end;min-height:320px}
-    .hero-image img{
-      width:min(420px,80%);height:auto;border-radius:16px;
-      filter:drop-shadow(0 18px 30px rgba(56,189,248,.25));
-      transform:translateY(6px)
-    }
-
-    @media (max-width:900px){
-      .hero-inner{grid-template-columns:1fr}
-      .hero-image{order:-1;min-height:220px}
-      .hero-image img{width:62%}
-    }
-
-    /* ===== Sections ===== */
-    section{max-width:1000px;margin:60px auto;padding:0 20px;opacity:0;transform:translateY(40px);transition:all .8s ease-out}
-    section.visible{opacity:1;transform:translateY(0)}
-    section h2{
-      font-size:2rem;margin-bottom:18px;color:var(--brand);
-      border-bottom:2px solid #334155;padding-bottom:10px
-    }
-
-    .skills,.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-    .card{
-      background:var(--panel);padding:20px;border-radius:14px;
-      transition:transform .5s ease, background .35s ease, box-shadow .35s ease;
-      border:1px solid #263344
-    }
-    .card:hover{transform:translateY(-4px);background:#253246;box-shadow:0 10px 28px rgba(56,189,248,.18)}
-    .card h3{margin-bottom:8px}
-
-    /* Make project cards clickable */
-    .card-link{text-decoration:none;color:inherit}
-    .card-link .card:hover{
-      transform:translateY(-4px);background:#253246;
-      box-shadow:0 10px 28px rgba(56,189,248,.18);
-    }
-
-    a{color:var(--brand);text-decoration:none}
-    footer{text-align:center;padding:24px;background:#0a192f;color:#94a3b8;margin-top:40px;border-top:1px solid #1b2a3d}
-
-    /* ===== Contact Form ===== */
-    #contact form{margin-top:12px;display:grid;gap:14px}
-    #contact label{display:grid;gap:8px}
-    #contact input,#contact textarea{
-      background:#0b1220;border:1px solid #263344;color:var(--text);
-      border-radius:10px;padding:12px 14px;outline:none;
-    }
-    #contact input:focus,#contact textarea:focus{
-      border-color:var(--brand);box-shadow:0 0 0 3px rgba(56,189,248,.15)
-    }
-    #contact .grid2{
-      display:grid;gap:14px;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr))
-    }
-    #contact .muted{color:var(--muted);margin-top:2px}
-  </style>
+  <meta name="description" content="Cybersecurity and digital forensics portfolio for Mohammed Ayaz Ansari.">
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="stylesheet" href="src/css/animations.css">
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <canvas id="matrix" aria-hidden="true"></canvas>
 
-  <!-- ===== HERO ===== -->
-  <header class="hero">
-    <canvas id="particles" aria-hidden="true"></canvas>
-
-    <div class="hero-inner">
-      <div class="hero-content">
-        <p class="eyebrow">Cybersecurity & Digital Forensics</p>
-        <h1 class="hero-title">
-          <span class="name">Mohammed Ayaz Ansari</span><br/>
-          <span class="typed" id="typed">Loading…</span>
-        </h1>
-        <p class="hero-sub">
-          I analyze networks, reverse engineer malware, and harden systems.
-          I’m looking for part-time IT / cybersecurity roles to grow and contribute.
-        </p>
-        <div class="cta">
-          <a class="btn" href="#projects">See Projects</a>
-          <a class="btn ghost" href="#contact">Contact Me</a>
-        </div>
+  <div id="bootScreen" class="boot-screen">
+    <div class="boot-card">
+      <pre class="ascii">
+ __   __  _______  __   __  ______
+|  | |  ||       ||  | |  ||    _ |
+|  |_|  ||   _   ||  | |  ||   | ||
+|       ||  | |  ||  |_|  ||   |_||_
+|_     _||  |_|  ||       ||    __  |
+  |   |  |       ||       ||   |  | |
+  |___|  |_______||_______||___|  |_|
+      </pre>
+      <div class="boot-lines">
+        <p><span>[init]</span> mounting cybersecurity portfolio</p>
+        <p><span>[scan]</span> loading forensic toolchain</p>
+        <p><span>[link]</span> syncing project evidence</p>
+        <p><span>[done]</span> analyst profile ready</p>
       </div>
-
-      <div class="hero-image">
-        <img src="profile.jpg" alt="Portrait of Mohammed Ayaz Ansari">
-      </div>
+      <div class="boot-bar"><i></i></div>
+      <button class="skip-boot" type="button">Enter portfolio</button>
     </div>
+  </div>
+
+  <header class="site-header">
+    <a class="logo" href="#top">>_ ayaz.sec</a>
+    <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certs</a>
+      <a href="#intel">Intel</a>
+      <a href="#platforms">Labs</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#focus">Focus</a>
+      <a href="#console">Console</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a motivated Computer Security & Forensics student at SUNY Broome, passionate about cybersecurity,
-      digital forensics, and IT support. I have hands-on experience in network analysis, malware detection, and
-      system hardening. I’m currently seeking part-time IT or cybersecurity opportunities to enhance my skills
-      and gain real-world experience.
-    </p>
-  </section>
-
-  <!-- ===== SKILLS ===== -->
-  <section id="skills">
-    <h2>Skills & Certifications</h2>
-    <div class="skills">
-      <div class="card">
-        <h3>Networking & Security</h3>
-        <p>Wireshark, Nmap, TCP/IP, System Hardening</p>
-      </div>
-      <div class="card">
-        <h3>Forensic Tools</h3>
-        <p>VirtualBox, IDA Free, Autopsy, CyberChef</p>
-      </div>
-      <div class="card">
-        <h3>Programming</h3>
-        <p>Python</p>
-      </div>
-      <div class="card">
-        <h3>Certification</h3>
-        <p><a href="https://coursera.org/verify/UZCYGSSQH49L" target="_blank" rel="noopener">Google IT Support Certificate</a></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Wireshark Network Traffic Analysis</h3>
-        <p>Captured and analyzed live network packets to monitor DNS lookups, ARP broadcasts, and ICMP traffic. Identified domain resolutions, local device discovery, and protocol behaviors in a home network.</p>
-      </div>
-      <div class="card">
-        <h3>Malware Analysis Lab</h3>
-        <p>Used IDA Free and CyberChef to dissect a simulated DLL malware sample. Mapped function calls, decrypted XOR-obfuscated strings, and documented process injection behavior.</p>
-      </div>
-      <div class="card">
-        <h3>DNS Threat Hunting Simulation</h3>
-        <p>Analyzed simulated DNS logs generated by makednslog to detect Indicators of Compromise (IoCs), such as DGA domains, spoofed IPs, and base64 data exfiltration.</p>
-      </div>
-      <!-- New Project: A1 Grocery Website -->
-      <a href="https://a1halalmeat.com/" target="_blank" rel="noopener" class="card-link">
-        <div class="card">
-          <h3>A1 Grocery & Halal Meat — Online Pickup Website 🔗</h3>
-          <p>Built a responsive website for a local halal store, allowing customers to order groceries and meat online for pickup. Features include a dynamic cart with live subtotal, mobile-first design, and easy ordering flow.</p>
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">// cybersecurity & digital forensics</p>
+        <h1>Mohammed Ayaz Ansari</h1>
+        <p class="subtitle">I am building practical skills in security operations, malware analysis, system protection, and IT support while preparing for entry-level SOC Analyst and IT Support roles.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">View Projects</a>
+          <a class="button secondary" href="#console">Open Console</a>
+          <a class="button secondary" href="#contact">Contact Me</a>
         </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>📧 Email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p>
-    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile" target="_blank" rel="noopener">View My LinkedIn Profile</a></p>
-
-    <!-- Formspree form -->
-    <form id="contact-form" action="https://formspree.io/f/mzzaoroj" method="POST" novalidate>
-      <input type="text" name="_gotcha" style="display:none">
-      <div class="grid2">
-        <label>
-          <span>Full Name</span>
-          <input name="name" type="text" placeholder="Your name" required>
-        </label>
-        <label>
-          <span>Email</span>
-          <input name="email" type="email" placeholder="you@example.com" required>
-        </label>
+        <div class="status-strip reveal" aria-label="Career snapshot">
+          <article>
+            <span>Status</span>
+            <strong>Open to opportunities</strong>
+          </article>
+          <article>
+            <span>Target Roles</span>
+            <strong>IT Support / SOC Tier 1</strong>
+          </article>
+          <article>
+            <span>Location</span>
+            <strong>Binghamton, NY</strong>
+          </article>
+        </div>
       </div>
-      <label>
-        <span>Phone</span>
-        <input name="phone" type="tel" inputmode="tel" placeholder="+1 (555) 123-4567" pattern="^[0-9+()\\- ]{7,}$">
-      </label>
-      <label>
-        <span>Question / Message</span>
-        <textarea name="message" rows="5" placeholder="How can I help?" required></textarea>
-      </label>
-      <input type="hidden" name="_subject" value="New message from portfolio site">
-      <button class="btn" type="submit">Send Message</button>
-      <p id="form-status" class="muted" role="status" aria-live="polite"></p>
-    </form>
-  </section>
+
+      <div class="terminal-window reveal" aria-label="Profile terminal">
+        <div class="terminal-top">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <p>profile.log</p>
+        </div>
+        <div class="terminal-body">
+          <p><span class="prompt">$</span> ./get_profile.sh</p>
+          <p class="output">name: Mohammed Ayaz Ansari</p>
+          <p class="output">role: Cybersecurity & IT student</p>
+          <p class="output">focus: SOC monitoring, malware analysis, system security</p>
+          <p><span class="prompt">$</span> cat links.txt</p>
+          <p class="output">site: <a href="https://mohammedayazansari.com/">mohammedayazansari.com</a></p>
+          <p class="output">email: <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a></p>
+          <p><span class="prompt">$</span> <span class="cursor"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// about</p>
+        <h2>About Me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="panel reveal">
+          <p class="lead">I am a cybersecurity and IT student at SUNY Broome Community College with a strong focus on security operations, malware analysis, and system protection.</p>
+          <p>I enjoy working hands-on with real-world systems, analyzing threats, troubleshooting technical issues, and building secure solutions. My goal is to start my career in IT Support or as a SOC Analyst Tier 1, where I can apply my skills in monitoring, detecting, and responding to security incidents while continuing to grow in cybersecurity.</p>
+        </div>
+        <div class="code-card reveal">
+          <div class="terminal-top">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <p>about.js</p>
+          </div>
+          <pre><code>const developer = {
+  name: "Mohammed Ayaz Ansari",
+  school: "SUNY Broome",
+  focus: ["SOC", "Malware Analysis", "IT Support"],
+  tools: ["Wireshark", "Splunk", "Wazuh"],
+  seeking: "SOC Analyst Tier 1 / IT Support"
+};</code></pre>
+        </div>
+      </div>
+      <div class="stats-grid reveal">
+        <article><strong>8</strong><span>Portfolio projects</span></article>
+        <article><strong>6</strong><span>Licenses & certifications</span></article>
+        <article><strong>SOC</strong><span>Entry-level career focus</span></article>
+      </div>
+    </section>
+
+    <section id="skills" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// skills</p>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <article class="panel skill-card reveal">
+          <h3>Cybersecurity & Analysis</h3>
+          <div class="meter"><span>Threat detection & log analysis</span><i data-width="84%"></i></div>
+          <div class="meter"><span>Malware analysis basics</span><i data-width="78%"></i></div>
+          <div class="meter"><span>Incident response basics</span><i data-width="72%"></i></div>
+        </article>
+        <article class="panel skill-card reveal">
+          <h3>Tools & Technologies</h3>
+          <div class="meter"><span>Wireshark / IDA Free / Procmon</span><i data-width="82%"></i></div>
+          <div class="meter"><span>Splunk / Wazuh</span><i data-width="74%"></i></div>
+          <div class="meter"><span>Flask / scikit-learn</span><i data-width="68%"></i></div>
+        </article>
+        <article class="panel skill-card reveal">
+          <h3>Programming & Networking</h3>
+          <div class="meter"><span>Python / web development</span><i data-width="76%"></i></div>
+          <div class="meter"><span>TCP/IP / VLAN basics</span><i data-width="72%"></i></div>
+          <div class="meter"><span>IT support & troubleshooting</span><i data-width="86%"></i></div>
+        </article>
+      </div>
+      <div class="competency-grid reveal">
+        <article>Cybersecurity fundamentals & security operations</article>
+        <article>Threat detection, analysis & response</article>
+        <article>Network security & traffic analysis</article>
+        <article>SIEM monitoring & log investigation</article>
+        <article>AI & machine learning applications in security</article>
+        <article>Secure web development and SEO basics</article>
+      </div>
+    </section>
+
+    <section id="certifications" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// verified learning</p>
+        <h2>Licenses & Certifications</h2>
+      </div>
+      <div class="cert-grid">
+        <article class="cert-card reveal">
+          <span>Google - April 2026</span>
+          <h3>Google Cybersecurity Professional Certificate</h3>
+          <p>Credential ID: LHWO4EOAW3IQ</p>
+          <p>Strengthened skills in security operations, threat detection, network security, risk management, incident response, SIEM tools, Linux, and security tools.</p>
+        </article>
+        <article class="cert-card reveal">
+          <span>IBM - November 2025</span>
+          <h3>Generative AI: Prompt Engineering Basics</h3>
+          <p>Credential ID: 0W7U02Y2UI96</p>
+          <p>Built a stronger understanding of prompt engineering techniques, AI model interaction, and natural language processing basics.</p>
+        </article>
+        <article class="cert-card reveal">
+          <span>Google - April 2026</span>
+          <h3>Discover the Art of Prompting</h3>
+          <p>Credential ID: EOQ3U4BLK16I</p>
+        </article>
+        <article class="cert-card reveal">
+          <span>Google - April 2026</span>
+          <h3>Maximize Productivity with AI Tools</h3>
+          <p>Credential ID: ZZ7VR7JMRI84</p>
+        </article>
+        <article class="cert-card reveal">
+          <span>Google - December 2025</span>
+          <h3>Introduction to AI</h3>
+          <p>Credential ID: QQQWXVLNEWA4</p>
+        </article>
+        <article class="cert-card reveal">
+          <span>Google - December 2024</span>
+          <h3>IT Security: Defense Against the Digital Dark Arts</h3>
+          <p>Credential ID: UZCYGSSQH49L</p>
+        </article>
+      </div>
+      <div class="panel summary-panel reveal">
+        <h3>Certifications Summary</h3>
+        <p>I have completed multiple industry-recognized certifications focused on cybersecurity, AI, and IT support. These certifications strengthened my understanding of real-world security practices, including threat detection, system protection, and secure network management.</p>
+        <p>I actively apply this knowledge in hands-on projects such as SOC labs, malware analysis, AI phishing detection, and secure web development.</p>
+      </div>
+    </section>
+
+    <section id="intel" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// live lab interface</p>
+        <h2>Threat Intel Board</h2>
+      </div>
+      <div class="intel-grid">
+        <div class="radar-panel reveal">
+          <div class="radar">
+            <span class="radar-sweep"></span>
+            <i style="--x: 24%; --y: 34%;"></i>
+            <i style="--x: 68%; --y: 28%;"></i>
+            <i style="--x: 52%; --y: 70%;"></i>
+            <i style="--x: 82%; --y: 62%;"></i>
+          </div>
+          <div class="radar-caption">
+            <strong>Packet monitor</strong>
+            <span>simulated traffic visibility</span>
+          </div>
+        </div>
+        <div class="intel-feed panel reveal" aria-live="polite">
+          <div class="feed-header">
+            <h3>Analyst Feed</h3>
+            <span id="intelClock">00:00:00</span>
+          </div>
+          <div id="intelFeed" class="feed-list"></div>
+        </div>
+        <div class="quick-facts reveal">
+          <article>
+            <span>Focus</span>
+            <strong>Blue team fundamentals</strong>
+          </article>
+          <article>
+            <span>Lab stack</span>
+            <strong>Wireshark / Nmap / VirtualBox</strong>
+          </article>
+          <article>
+            <span>Goal</span>
+            <strong>Part-time IT or cybersecurity role</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="platforms" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// practical training</p>
+        <h2>Cybersecurity Practice Platforms</h2>
+      </div>
+      <div class="about-grid">
+        <div class="panel reveal">
+          <p class="lead">I practice cybersecurity through TryHackMe and Hack The Box to build realistic, hands-on skills outside the classroom.</p>
+          <p>These platforms help me work through real-world simulations involving network scanning, enumeration, vulnerability analysis, privilege escalation basics, and documentation. I use them to keep improving my process, not to exaggerate my experience: the goal is steady, practical growth.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>Additional Work</h3>
+          <p>I continuously practice through labs, simulations, personal projects, DNS log analysis, malware analysis exercises, digital forensics practice, and small security-focused web projects.</p>
+          <div class="tag-list">
+            <span>TryHackMe</span>
+            <span>Hack The Box</span>
+            <span>Threat hunting</span>
+            <span>Digital forensics</span>
+            <span>Secure web apps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="triage" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// mini blue-team tool</p>
+        <h2>Threat Triage Sandbox</h2>
+      </div>
+      <div class="triage-grid">
+        <form id="triageForm" class="triage-panel reveal">
+          <label for="triageInput">Paste a sample URL, domain, or log line</label>
+          <textarea id="triageInput" placeholder="Example: failed login from 10.0.0.8 to admin portal with suspicious domain"></textarea>
+          <button class="button primary" type="submit">Analyze Sample</button>
+        </form>
+        <div class="triage-result panel reveal">
+          <div class="feed-header">
+            <h3>Local Analysis</h3>
+            <span id="triageBadge">READY</span>
+          </div>
+          <p id="triageOutput">This lightweight demo checks for common suspicious words and patterns. It is not a real security product, but it shows the kind of thinking used in first-level triage.</p>
+          <ul id="triageSignals" class="clean-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="playbook" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// response mindset</p>
+        <h2>Incident Response Playbook</h2>
+      </div>
+      <div class="playbook-grid">
+        <article class="playbook-step reveal">
+          <span>01</span>
+          <h3>Identify</h3>
+          <p>Review alerts, logs, affected hosts, user reports, and timeline clues to understand what may be happening.</p>
+        </article>
+        <article class="playbook-step reveal">
+          <span>02</span>
+          <h3>Analyze</h3>
+          <p>Look for indicators such as suspicious domains, unusual processes, failed logins, abnormal traffic, or file changes.</p>
+        </article>
+        <article class="playbook-step reveal">
+          <span>03</span>
+          <h3>Contain</h3>
+          <p>Limit impact by isolating affected systems, blocking known bad indicators, and preserving useful evidence.</p>
+        </article>
+        <article class="playbook-step reveal">
+          <span>04</span>
+          <h3>Document</h3>
+          <p>Write clear notes on findings, actions taken, evidence reviewed, and recommendations for improving defenses.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// timeline</p>
+        <h2>Experience</h2>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <span></span>
+          <div>
+            <p>Present</p>
+            <h3>Computer Security & Forensics Student</h3>
+            <p>Studying cybersecurity and digital forensics at SUNY Broome while building practical labs in networking, malware analysis, and incident investigation.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span></span>
+          <div>
+            <p>Hands-on Labs</p>
+            <h3>Cybersecurity Practice</h3>
+            <p>Captured packets, reviewed DNS logs, tested analysis workflows, and documented findings using tools such as Wireshark, Nmap, IDA Free, CyberChef, and Autopsy.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span></span>
+          <div>
+            <p>Web Project</p>
+            <h3>A1 Grocery & Halal Meat</h3>
+            <p>Built a responsive online pickup website with a dynamic cart, live subtotal, mobile-first layout, and a simple customer ordering flow.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// featured work</p>
+        <h2>Projects</h2>
+      </div>
+      <div class="project-filters reveal" aria-label="Project filters">
+        <button class="filter-button active" type="button" data-filter="all">All</button>
+        <button class="filter-button" type="button" data-filter="soc">SOC</button>
+        <button class="filter-button" type="button" data-filter="network">Network</button>
+        <button class="filter-button" type="button" data-filter="malware">Malware</button>
+        <button class="filter-button" type="button" data-filter="ai">AI</button>
+        <button class="filter-button" type="button" data-filter="web">Web</button>
+        <button class="filter-button" type="button" data-filter="it">IT</button>
+        <button class="filter-button" type="button" data-filter="seo">SEO</button>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card reveal" data-category="soc">
+          <p class="project-index">01</p>
+          <h3>SOC Lab: Security Operations Simulation</h3>
+          <p>Created a home lab to simulate suspicious activity, collect logs, monitor alerts, and document investigations using SIEM tools such as Splunk and Wazuh.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="malware">
+          <p class="project-index">02</p>
+          <h3>Malware Analysis Report</h3>
+          <p>Performed static and dynamic analysis using IDA Free, Wireshark, and Procmon to identify suspicious strings, imports, process activity, and network behavior.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="ai">
+          <p class="project-index">03</p>
+          <h3>AI Phishing Detection System</h3>
+          <p>Developed a Python, Flask, and scikit-learn web app that reviews email characteristics such as links, urgency, and keywords to estimate phishing risk.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="web">
+          <p class="project-index">04</p>
+          <h3>Secure Grocery E-Commerce Website</h3>
+          <p>Designed the A-1 Grocery & Halal Meat ordering site with product categories, smooth UI, QR-based ordering, input validation, and secure structure.</p>
+          <a href="https://a1halalmeat.com/">Visit website</a>
+        </article>
+        <article class="project-card reveal" data-category="it">
+          <p class="project-index">05</p>
+          <h3>Mosque IT & Website Support</h3>
+          <p>Provide ongoing technical support, website updates, event AV support, connectivity troubleshooting, and user assistance for a local mosque.</p>
+          <a href="#contact">Discuss work</a>
+        </article>
+        <article class="project-card reveal" data-category="web">
+          <p class="project-index">06</p>
+          <h3>Cafe Website Management</h3>
+          <p>Developed and maintained a modern cafe website for Milano Bean Cafe with a clean interface, interactive menu, and visual product presentation.</p>
+          <a href="#contact">Discuss work</a>
+        </article>
+        <article class="project-card reveal" data-category="network">
+          <p class="project-index">07</p>
+          <h3>Network Configuration Project</h3>
+          <p>Designed a small-scale network setup with IP addressing, subnetting, basic VLAN structure, firewall rules, connectivity testing, and security checks.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="network">
+          <p class="project-index">08</p>
+          <h3>Python Vulnerability Scanner</h3>
+          <p>Built a practical Python scanner using the requests library to check URLs for basic issues such as missing security headers and input validation concerns.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="network">
+          <p class="project-index">09</p>
+          <h3>DNS Threat Hunting Simulation</h3>
+          <p>Analyzed DNS logs to identify suspicious patterns such as DGA-style domains, spoofed IPs, unusual queries, and possible encoded data exfiltration.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+        <article class="project-card reveal" data-category="seo">
+          <p class="project-index">10</p>
+          <h3>SEO Optimization Project</h3>
+          <p>Applied keyword optimization, content structure improvements, and performance updates to improve search visibility and user traffic.</p>
+          <a href="#contact">Discuss project</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="focus" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// career direction</p>
+        <h2>What I Bring</h2>
+      </div>
+      <div class="focus-grid">
+        <article class="panel reveal">
+          <h3>What I Learned</h3>
+          <ul class="clean-list">
+            <li>How to detect and analyze realistic cyber threats.</li>
+            <li>How attackers behave in lab environments.</li>
+            <li>How to identify vulnerabilities and strengthen systems.</li>
+            <li>How to work with logs, alerts, and investigations.</li>
+            <li>How to apply cybersecurity concepts in practical scenarios.</li>
+          </ul>
+        </article>
+        <article class="panel reveal">
+          <h3>Supporting Evidence</h3>
+          <ul class="clean-list">
+            <li>SOC lab dashboard screenshots.</li>
+            <li>Malware analysis report in PDF format.</li>
+            <li>GitHub repositories with documented code.</li>
+            <li>Live website projects and demos.</li>
+            <li>Certification verification links.</li>
+          </ul>
+        </article>
+        <article class="panel reveal">
+          <h3>Professional Focus</h3>
+          <p>I am focused on building a career in cybersecurity, especially Security Operations and threat analysis. My goal is to help organizations monitor systems, detect suspicious behavior, respond to incidents, and improve system security.</p>
+          <p>I am also open to IT Support roles where I can troubleshoot systems, assist users, support hardware and software setup, and grow toward a cybersecurity analyst path.</p>
+        </article>
+      </div>
+      <div class="panel summary-panel reveal">
+        <h3>Continuous Learning</h3>
+        <p>I focus on building real, practical skills rather than only theoretical knowledge. My approach is to simulate real-world environments, analyze realistic threats, build secure systems, and keep improving through new tools, hands-on projects, certifications, and current cybersecurity trends.</p>
+      </div>
+    </section>
+
+    <section id="console" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// interactive console</p>
+        <h2>Ask The Terminal</h2>
+      </div>
+      <div class="command-console reveal">
+        <div class="terminal-top">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <p>ayaz-console</p>
+        </div>
+        <div id="consoleOutput" class="console-output" aria-live="polite">
+          <p><span class="prompt">$</span> help</p>
+          <p class="output">Available commands: about, skills, projects, certs, labs, focus, evidence, contact, clear</p>
+        </div>
+        <form id="consoleForm" class="console-form">
+          <span class="prompt">$</span>
+          <input id="consoleInput" type="text" autocomplete="off" spellcheck="false" placeholder="type a command">
+          <button type="submit">Run</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="contact" class="section-shell">
+      <div class="section-heading">
+        <p class="eyebrow">// contact</p>
+        <h2>Get In Touch</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="panel reveal">
+          <p class="lead">Open to part-time IT support, cybersecurity, and digital forensics opportunities.</p>
+          <p>The fastest way to reach me is by email. I am interested in roles where I can help troubleshoot systems, analyze security issues, and keep learning through real technical work.</p>
+          <div class="contact-links">
+            <a href="mailto:Ayazans07@gmail.com">Ayazans07@gmail.com</a>
+            <a href="https://mohammedayazansari.com/">mohammedayazansari.com</a>
+            <a href="https://www.linkedin.com/in/mohammed-ayaz-ansari-062908274">LinkedIn profile</a>
+          </div>
+          <button id="copyEmail" class="copy-button" type="button">Copy email</button>
+          <p id="copyStatus" class="copy-status" aria-live="polite"></p>
+        </div>
+        <form class="contact-form reveal">
+          <label>Name<input type="text" placeholder="Your name"></label>
+          <label>Email<input type="email" placeholder="your.email@example.com"></label>
+          <label>Message<textarea placeholder="Tell me about the project"></textarea></label>
+          <button class="button primary" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Mohammed Ayaz Ansari | Interactive Portfolio
+    <p>(c) 2026 Mohammed Ayaz Ansari. Built with HTML, CSS, and JavaScript.</p>
   </footer>
 
-  <script>
-    /* ========= Typing Effect ========= */
-    (function(){
-      const el = document.getElementById('typed');
-      const roles = [
-        "Computer Security & Forensics Student",
-        "Malware Analysis Enthusiast",
-        "Network Forensics Explorer",
-        "Aspiring Cybersecurity Specialist"
-      ];
-      let i = 0, j = 0, typing = true, pause = 900;
-      function tick(){
-        const word = roles[i % roles.length];
-        if(typing){
-          el.textContent = word.slice(0, j++);
-          if(j > word.length){ typing = false; setTimeout(tick, pause); return; }
-        }else{
-          el.textContent = word.slice(0, j--);
-          if(j < 0){ typing = true; i++; }
-        }
-        setTimeout(tick, typing ? 45 : 35);
-      }
-      tick();
-    })();
+  <a class="back-to-top" href="#top" aria-label="Back to top">^</a>
 
-    /* ========= Particles Background ========= */
-    (function(){
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
-      let W, H, points = [];
-      function size(){ W = canvas.width = window.innerWidth; H = canvas.height = Math.max(400, window.innerHeight*0.88); }
-      function rand(min,max){ return Math.random()*(max-min)+min; }
-      function init(){
-        size(); points = [];
-        const count = Math.min(90, Math.floor(W*H/18000));
-        for(let i=0;i<count;i++){
-          points.push({ x: rand(0,W), y: rand(0,H), vx: rand(-.35,.35), vy: rand(-.35,.35), r: rand(1,2.2) });
-        }
-      }
-      function step(){
-        ctx.clearRect(0,0,W,H);
-        for(const p of points){
-          p.x += p.vx; p.y += p.vy;
-          if(p.x<0||p.x>W) p.vx*=-1;
-          if(p.y<0||p.y>H) p.vy*=-1;
-          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-          ctx.fillStyle = "rgba(125, 211, 252, .75)"; ctx.fill();
-        }
-        for(let i=0;i<points.length;i++){
-          for(let j=i+1;j<points.length;j++){
-            const a = points[i], b = points[j];
-            const dx = a.x-b.x, dy = a.y-b.y, d2 = dx*dx + dy*dy;
-            if(d2 < 140*140){
-              const alpha = 1 - (d2 / (140*140));
-              ctx.strokeStyle = `rgba(56,189,248, ${alpha*.28})`;
-              ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-            }
-          }
-        }
-        requestAnimationFrame(step);
-      }
-      window.addEventListener('resize', init);
-      init(); step();
-    })();
-
-    /* ========= Scroll reveal ========= */
-    (function(){
-      const sections = document.querySelectorAll('section');
-      const io = new IntersectionObserver(entries=>{
-        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-      }, {threshold:.18});
-      sections.forEach(s=>io.observe(s));
-    })();
-
-    /* ========= Contact form handling ========= */
-    (function(){
-      const form = document.getElementById('contact-form');
-      const status = document.getElementById('form-status');
-      if(!form) return;
-      form.addEventListener('submit', async (e)=>{
-        e.preventDefault();
-        status.textContent = 'Sending...';
-        const data = new FormData(form);
-        try{
-          const res = await fetch(form.action, {
-            method: form.method,
-            headers: { 'Accept': 'application/json' },
-            body: data
-          });
-          if(res.ok){
-            form.reset();
-            status.textContent = '✅ Thanks! Your message has been sent.';
-          }else{
-            const j = await res.json().catch(()=>({}));
-            status.textContent = j?.errors?.[0]?.message || '❌ Something went wrong. Please try again.';
-          }
-        }catch{
-          status.textContent = '❌ Network error. Please try again.';
-        }
-      });
-    })();
-  </script>
+  <script src="src/js/main.js"></script>
 </body>
 </html>
